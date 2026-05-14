@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Modern Weather Website</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:url('https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?q=80&w=2070&auto=format&fit=crop')
+  no-repeat center center/cover;
+  color:white;
+  overflow-x:hidden;
+}
+
+.overlay{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.45);
+  backdrop-filter:blur(4px);
+  z-index:-1;
+}
+
+/* NAVBAR */
+
+nav{
+  width:100%;
+  padding:20px 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:30px;
+  font-weight:bold;
+}
+
+.search-box{
+  display:flex;
+  gap:10px;
+}
+
+.search-box input{
+  width:260px;
+  padding:12px 15px;
+  border:none;
+  border-radius:12px;
+  outline:none;
+  background:rgba(255,255,255,0.15);
+  color:white;
+  font-size:16px;
+}
+
+.search-box input::placeholder{
+  color:#ddd;
+}
+
+.search-box button{
+  padding:12px 18px;
+  border:none;
+  border-radius:12px;
+  background:#00b4ff;
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.search-box button:hover{
+  background:#0095d9;
+}
+
+/* MAIN SECTION */
+
+.main{
+  padding:40px 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:40px;
+}
+
+/* LEFT WEATHER */
+
+.weather-left{
+  flex:1;
+}
+
+.city{
+  font-size:60px;
+  font-weight:bold;
+}
+
+.date{
+  margin-top:10px;
+  font-size:20px;
+  color:#ddd;
+}
+
+.temp{
+  font-size:140px;
+  font-weight:bold;
+  margin:20px 0;
+}
+
+.condition{
+  font-size:35px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+/* RIGHT PANEL */
+
+.weather-right{
+  width:380px;
+  background:rgba(255,255,255,0.12);
+  padding:25px;
+  border-radius:25px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.details{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.card{
+  background:rgba(255,255,255,0.1);
+  padding:20px;
+  border-radius:18px;
+  text-align:center;
+}
+
+.card i{
+  font-size:28px;
+  margin-bottom:10px;
+  color:#38bdf8;
+}
+
+.card h2{
+  margin-bottom:5px;
+}
+
+/* FORECAST */
+
+.forecast{
+  margin-top:50px;
+  padding:0 60px 40px;
+}
+
+.forecast h2{
+  margin-bottom:25px;
+  font-size:30px;
+}
+
+.forecast-container{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+}
+
+.forecast-card{
+  min-width:150px;
+  background:rgba(255,255,255,0.12);
+  padding:20px;
+  border-radius:20px;
+  text-align:center;
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+
+.forecast-card:hover{
+  transform:translateY(-10px);
+}
+
+.forecast-card i{
+  font-size:40px;
+  margin:15px 0;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+  .main{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .weather-right{
+    width:100%;
+  }
+
+  .temp{
+    font-size:100px;
+  }
+
+  nav{
+    flex-direction:column;
+    gap:20px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<!-- NAVBAR -->
+
+<nav>
+
+  <div class="logo">
+    🌦 SkyCast
+  </div>
+
+  <div class="search-box">
+
+    <input type="text"
+    id="cityInput"
+    placeholder="Search city...">
+
+    <button onclick="getWeather()">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+
+  </div>
+
+</nav>
+
+<!-- MAIN -->
+
+<section class="main">
+
+  <div class="weather-left">
+
+    <div class="city" id="city">
+      Ahmedabad
+    </div>
+
+    <div class="date" id="date">
+      Tuesday, 14 May 2026
+    </div>
+
+    <div class="temp" id="temp">
+      32°
+    </div>
+
+    <div class="condition" id="condition">
+
+      <i class="fa-solid fa-cloud-sun"></i>
+
+      Sunny
+
+    </div>
+
+  </div>
+
+  <!-- RIGHT DETAILS -->
+
+  <div class="weather-right">
+
+    <div class="details">
+
+      <div class="card">
+        <i class="fa-solid fa-water"></i>
+        <h2 id="humidity">65%</h2>
+        <p>Humidity</p>
+      </div>
+
+      <div class="card">
+        <i class="fa-solid fa-wind"></i>
+        <h2 id="wind">12 km/h</h2>
+        <p>Wind</p>
+      </div>
+
+      <div class="card">
+        <i class="fa-solid fa-temperature-half"></i>
+        <h2 id="feels">34°C</h2>
+        <p>Feels Like</p>
+      </div>
+
+      <div class="card">
+        <i class="fa-solid fa-eye"></i>
+        <h2 id="visibility">5 km</h2>
+        <p>Visibility</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FORECAST -->
+
+<section class="forecast">
+
+  <h2>5-Day Forecast</h2>
+
+  <div class="forecast-container"
+  id="forecastContainer">
+
+  </div>
+
+</section>
+
+<script>
+
+const apiKey = "YOUR_API_KEY";
+
+const date = new Date();
+
+document.getElementById("date").innerHTML =
+date.toDateString();
+
+async function getWeather(){
+
+  const city =
+  document.getElementById("cityInput").value;
+
+  if(city === ""){
+    alert("Please enter city");
+    return;
+  }
+
+  const url =
+  `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+
+  try{
+
+    const response = await fetch(url);
+
+    const data = await response.json();
+
+    const current = data.list[0];
+
+    document.getElementById("city").innerHTML =
+    data.city.name;
+
+    document.getElementById("temp").innerHTML =
+    Math.round(current.main.temp) + "°";
+
+    document.getElementById("condition").innerHTML =
+    `<i class="fa-solid fa-cloud-sun"></i>
+    ${current.weather[0].main}`;
+
+    document.getElementById("humidity").innerHTML =
+    current.main.humidity + "%";
+
+    document.getElementById("wind").innerHTML =
+    Math.round(current.wind.speed) + " km/h";
+
+    document.getElementById("feels").innerHTML =
+    Math.round(current.main.feels_like) + "°C";
+
+    document.getElementById("visibility").innerHTML =
+    (current.visibility / 1000) + " km";
+
+    const forecastContainer =
+    document.getElementById("forecastContainer");
+
+    forecastContainer.innerHTML = "";
+
+    for(let i=0;i<5;i++){
+
+      const item = data.list[i*8];
+
+      const day =
+      new Date(item.dt_txt)
+      .toLocaleDateString("en-US",{
+        weekday:"short"
+      });
+
+      forecastContainer.innerHTML += `
+
+      <div class="forecast-card">
+
+        <h3>${day}</h3>
+
+        <i class="fa-solid fa-cloud"></i>
+
+        <h1>${Math.round(item.main.temp)}°</h1>
+
+        <p>${item.weather[0].main}</p>
+
+      </div>
+
+      `;
+    }
+
+  }
+
+  catch(error){
+
+    alert("City not found");
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
