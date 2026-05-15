@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional CSS Image Sprites</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      background:#0f172a;
+      color:white;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:40px;
+    }
+
+    .container{
+      width:100%;
+      max-width:1200px;
+    }
+
+    .title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .title h1{
+      font-size:50px;
+      margin-bottom:15px;
+      letter-spacing:2px;
+    }
+
+    .title p{
+      color:#cbd5e1;
+      font-size:18px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:30px;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(12px);
+      border-radius:25px;
+      padding:40px 30px;
+      text-align:center;
+      transition:0.4s;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card::before{
+      content:'';
+      position:absolute;
+      width:200px;
+      height:200px;
+      background:rgba(56,189,248,0.08);
+      border-radius:50%;
+      top:-80px;
+      right:-80px;
+    }
+
+    .card:hover{
+      transform:translateY(-12px);
+      box-shadow:0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    /* =======================================
+       CSS IMAGE SPRITES
+       ======================================= */
+
+    .icon{
+      width:80px;
+      height:80px;
+      margin:0 auto 25px;
+
+      background-image:url('https://i.imgur.com/4M7IWwP.png');
+      background-repeat:no-repeat;
+
+      transform:scale(1.1);
+    }
+
+    /*
+      Sprite Sheet Example
+      Each icon uses a different background-position
+    */
+
+    .web{
+      background-position:0 0;
+    }
+
+    .design{
+      background-position:-80px 0;
+    }
+
+    .security{
+      background-position:-160px 0;
+    }
+
+    .cloud{
+      background-position:-240px 0;
+    }
+
+    .card h2{
+      margin-bottom:15px;
+      font-size:26px;
+    }
+
+    .card p{
+      color:#cbd5e1;
+      line-height:1.8;
+      font-size:15px;
+    }
+
+    .btn{
+      display:inline-block;
+      margin-top:25px;
+      padding:12px 28px;
+      border-radius:50px;
+      text-decoration:none;
+      color:white;
+      background:#38bdf8;
+      transition:0.3s;
+      font-weight:600;
+    }
+
+    .btn:hover{
+      background:#0ea5e9;
+      transform:scale(1.05);
+    }
+
+    @media(max-width:768px){
+
+      .title h1{
+        font-size:38px;
+      }
+
+      .card{
+        padding:35px 25px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="title">
+      <h1>CSS Image Sprites</h1>
+
+      <p>
+        Professional practical example using one image sprite sheet
+        for multiple icons.
+      </p>
+    </div>
+
+    <div class="cards">
+
+      <!-- Card 1 -->
+      <div class="card">
+
+        <div class="icon web"></div>
+
+        <h2>Web Development</h2>
+
+        <p>
+          Fast and optimized websites using modern frontend technologies
+          and clean UI design.
+        </p>
+
+        <a href="#" class="btn">Learn More</a>
+
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+
+        <div class="icon design"></div>
+
+        <h2>Creative Design</h2>
+
+        <p>
+          Beautiful interfaces with premium user experience and smooth
+          visual consistency.
+        </p>
+
+        <a href="#" class="btn">Learn More</a>
+
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+
+        <div class="icon security"></div>
+
+        <h2>Cyber Security</h2>
+
+        <p>
+          Secure digital systems with high-level protection and modern
+          security practices.
+        </p>
+
+        <a href="#" class="btn">Learn More</a>
+
+      </div>
+
+      <!-- Card 4 -->
+      <div class="card">
+
+        <div class="icon cloud"></div>
+
+        <h2>Cloud Services</h2>
+
+        <p>
+          Powerful cloud solutions with scalable infrastructure and
+          real-time deployment.
+        </p>
+
+        <a href="#" class="btn">Learn More</a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

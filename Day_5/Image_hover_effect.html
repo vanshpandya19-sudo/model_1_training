@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Hover Effect Practical</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background-color : black;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+    }
+
+    .container{
+      display:flex;
+      gap:25px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .card{
+      position:relative;
+      width:300px;
+      height:200px;
+      overflow:hidden;
+      border-radius:15px;
+      cursor:pointer;
+      box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:0.5s ease;
+    }
+
+    .overlay{
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.6);
+      color:white;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      opacity:0;
+      transition:0.5s ease;
+      font-size:24px;
+      font-weight:bold;
+    }
+
+    /* Hover Effects */
+    .card:hover img{
+      transform:scale(1.2);
+      filter:blur(2px);
+    }
+
+    .card:hover .overlay{
+      opacity:1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="card">
+      <img src="https://picsum.photos/id/1015/600/400" alt="Nature">
+      <div class="overlay">Beautiful Nature</div>
+    </div>
+
+    <div class="card">
+      <img src="https://picsum.photos/id/1005/600/400" alt="Mountain">
+      <div class="overlay">Mountain View</div>
+    </div>
+
+    <div class="card">
+      <img src="https://picsum.photos/id/1025/600/400" alt="Dog">
+      <div class="overlay">Cute Dog</div>
+    </div>
+
+  </div>
+
+</body>
+</html>
